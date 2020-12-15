@@ -2,6 +2,7 @@
 #include<fstream>
 #include<string>
 using namespace std;
+const char *lol;
 class loginfo
 {
 public:
@@ -14,6 +15,7 @@ public:
             cout<<"\n";
             cout<<"Enter Password: "<<endl;
             cin>>passwordTyped;
+            passwordTyped=getFile(lol);
             if(passwordTyped==defaultPassword)
             {
                 acess=true;
@@ -40,12 +42,12 @@ public:
             login();
         }  
     }     
-    string getFile(const char* p_fileName)
+    string getFile(const char* fileName)
     {
         string line;
         fstream file;
 
-        file.open(p_fileName, ios::in);
+        file.open(fileName, ios::in);
         if(file.is_open())
         {
             getline(file, line);
