@@ -18,7 +18,6 @@ public:
             passwordTyped=getFile(lol);
             if(passwordTyped==defaultPassword)
             {
-                acess=true;
                 cout<<"Welcome xD!"<<endl;
             }
             else
@@ -47,15 +46,50 @@ public:
         string line;
         fstream file;
 
+
+        int e;
+
         file.open(fileName, ios::in);
-        if(file.is_open())
+        
+        while(1)
         {
-            getline(file, line);
+            file >> e;
+            if(e == 0)
+            {
+                file.close();
+                return line;
+            }
+            line += (char)decrypt(e);
         }
+
+        file << "0";
         file.close();
 
         return line;
         
+    }
+    void saveFile(string line, const char* fileName)
+    {
+        fstream file;
+        file.open(fileName, ios::out);
+
+        for(int i = 0; i < line.length(); i++)
+        {
+            file << encrypt(line[i]);
+            file << "\n";
+            
+        }
+
+        file << "0";
+        file.close();
+    }
+    int encrypt(int letter)
+    {
+        return letter + 3;   
+    }
+    int decrypt(int letter)
+    {
+        return letter - 3;
     }
 private:
     string defaultUser="user";
